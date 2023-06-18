@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/register.css">
+    <link rel="stylesheet" href="styles/login.css">
     <title>BlackJack App</title>
 </head>
 <body>
     <div class="form-container">
-      <h1>Register</h1>
-      <form autocomplete="off" action="/register" method="post">
+      <h1>Login</h1>
+      <form autocomplete="off" action="/login" method="post">
         <div class="form-group">
           <label for="username" class="form-label">Username</label>
           <input type="text" id="username" name="username" class="form-input" required>
@@ -18,11 +18,7 @@
           <label for="password" class="form-label">Password</label>
           <input type="password" id="password" name="password" class="form-input" required>
         </div>
-        <div class="form-group">
-          <label for="confirmPassword" class="form-label">Confirm Password</label>
-          <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
-        </div>
-        <button type="submit" class="form-button">Register</button>
+        <button type="submit" class="form-button">Login</button>
       </form>
     </div>
 </body>

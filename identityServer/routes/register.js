@@ -7,7 +7,6 @@ const registerController = require('../controllers/registerController');
 app.use(express.json());
 
 // temp db, will need to connect to db
-const users = [];
 
 router.get('/', (req, res) => {
   res.sendFile('views/register.html', { root: 'public' });
@@ -26,9 +25,6 @@ router.post('/', async (req, res) => {
   
       const salt = await bcrypt.genSalt();
       const hashedPass = await bcrypt.hash(password, salt);
-  
-      //const user = { name: username, password: hashedPass };
-      //users.push(user);
 
       await registerController.addUser(username, hashedPass);
 
