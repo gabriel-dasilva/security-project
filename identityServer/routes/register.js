@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const registerController = require('../controllers/registerController');
 
 app.use(express.json());
 
@@ -26,12 +27,16 @@ router.post('/', async (req, res) => {
       const salt = await bcrypt.genSalt();
       const hashedPass = await bcrypt.hash(password, salt);
   
-      const user = { name: username, password: hashedPass };
-      users.push(user);
-      res.status(201).send();
+      //const user = { name: username, password: hashedPass };
+      //users.push(user);
+
+      await registerController.addUser(username, hashedPass);
+
+      res.status(201).send('success');
     } catch (error) {
       console.error(error);
       res.status(500).send('Internal server error');
     }
   });
+  
 module.exports = router;
