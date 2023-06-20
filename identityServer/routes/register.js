@@ -28,7 +28,20 @@ router.post('/', async (req, res) => {
 
       await registerController.addUser(username, hashedPass);
 
-      res.status(201).send('success');
+      const token = jwt.sign(
+        {username: username},
+        process.env.TOKEN_SECRET,
+        {
+          expiresIn: "1h"
+        }
+      );
+      
+      const user = {
+        username: username,
+        token: token
+      }
+      
+      res.status(201).send(user);
     } catch (error) {
       console.error(error);
       res.status(500).send('Internal server error');

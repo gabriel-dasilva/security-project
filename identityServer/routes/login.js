@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 const loginController = require('../controllers/loginController');
 
 app.use(express.json());
@@ -31,7 +36,16 @@ router.post('/', async (req, res) => {
       return res.status(401).send('Invalid username or password');
     }
 
-    res.status(200).send('Login successful');
+    const token = jwt.sign(
+      {username: user.username},
+      process.env.TOKEN_SECRET,
+      {
+        expiresIn: "1h"
+      }
+    );
+
+    user.token = token;
+    res.status(200).send(user);
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal server error');
