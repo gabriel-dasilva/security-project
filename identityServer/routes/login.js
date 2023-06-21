@@ -4,16 +4,27 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-
-dotenv.config();
-
+const sgMail = require('@sendgrid/mail');
 const loginController = require('../controllers/loginController');
+const crypto = require('crypto');
+dotenv.config();
 
 app.use(express.json());
 
 router.get('/', (req, res) => {
   res.sendFile('views/login.html', { root: 'public' });
 });
+
+
+
+const generateOTP = () => {
+  const digits = 6; 
+  const buffer = crypto.randomBytes(Math.ceil(digits / 2));
+  let OTP = buffer.toString('hex');
+  OTP = OTP.slice(0, digits);
+  return OTP.toLocaleUpperCase();
+};
+
 
 router.post('/', async (req, res) => {
   try {
@@ -27,15 +38,38 @@ router.post('/', async (req, res) => {
         console.log('it should execute the if statemnt')
       return res.status(401).send('Invalid username or password');
     }
-
     
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log('is the password valid: '+isPasswordValid);
 
     if (!isPasswordValid) {
       return res.status(401).send('Invalid username or password');
     }
 
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+    const OTP = generateOTP();
+
+    const msg = {
+        to: 'slpotgieter1@gmail.com', // Change to your recipient
+        from: 'cooldude2233456@gmail.com', // Change to your verified sender
+        subject: 'Here is your OTP',
+        text: `Your OTP: ${OTP}`, 
+    }
+
+    /*
+    sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Email sent')
+    })
+  .catch((error) => {
+    console.error(error)
+  })
+
+  */
+
+  res.redirect('/confirm-otp');
+
+  /*  
     const token = jwt.sign(
       {username: user.username},
       process.env.TOKEN_SECRET,
@@ -47,9 +81,12 @@ router.post('/', async (req, res) => {
     user.token = token;
     tokenValue = {
       'token': user.token,
+      
     };
 
     res.status(200).send(tokenValue);
+    */
+    
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal server error');
