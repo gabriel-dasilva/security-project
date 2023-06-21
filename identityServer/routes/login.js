@@ -58,6 +58,7 @@ router.post('/', async (req, res) => {
 
     req.session.otp = OTP;
     req.session.email = msg.to;
+    req.session.username = username;
     /*
     sgMail
     .send(msg)
