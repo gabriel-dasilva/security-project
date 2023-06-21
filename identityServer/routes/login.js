@@ -22,7 +22,7 @@ const generateOTP = () => {
   const buffer = crypto.randomBytes(Math.ceil(digits / 2));
   let OTP = buffer.toString('hex');
   OTP = OTP.slice(0, digits);
-  return OTP.toLocaleUpperCase();
+  return OTP;
 };
 
 
@@ -47,6 +47,7 @@ router.post('/', async (req, res) => {
 
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     const OTP = generateOTP();
+    console.log(OTP);
 
     const msg = {
         to: 'slpotgieter1@gmail.com', // Change to your recipient
@@ -55,6 +56,8 @@ router.post('/', async (req, res) => {
         text: `Your OTP: ${OTP}`, 
     }
 
+    req.session.otp = OTP;
+    req.session.email = msg.to;
     /*
     sgMail
     .send(msg)
@@ -67,7 +70,7 @@ router.post('/', async (req, res) => {
 
   */
 
-  res.redirect('/confirm-otp');
+  res.redirect('/confirmOTP');
 
   /*  
     const token = jwt.sign(
