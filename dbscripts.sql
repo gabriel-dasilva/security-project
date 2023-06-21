@@ -8,5 +8,5 @@ CREATE TABLE User (
 );
 
 
--- need to run this command for the correct auth 
+-- need to run this command below for connection to work (replace username with your own)
 --ALTER USER 'your_username'@'localhost' IDENTIFIED WITH mysql_native_password BY '';

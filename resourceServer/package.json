@@ -1,0 +1,19 @@
+{
+  "name": "resourceserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon app",
+    "prod": "node app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gabriel da Silva",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
