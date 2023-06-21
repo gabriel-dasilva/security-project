@@ -44,8 +44,14 @@ router.post('/', async (req, res) => {
       }
     );
 
+
     user.token = token;
-    res.status(200).send(user);
+    
+    tokenValue = {
+      'token': user.token,
+    };
+
+    res.status(200).send(tokenValue);
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal server error');
