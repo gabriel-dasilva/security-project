@@ -44,9 +44,7 @@ router.post('/', async (req, res) => {
       }
     );
 
-
     user.token = token;
-    
     tokenValue = {
       'token': user.token,
     };
