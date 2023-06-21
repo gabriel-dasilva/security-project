@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Blackjack</title>
+    <link rel="stylesheet" type="text/css" href="../styles/blackjack.css">
+    <script defer src="../javascript/blackjack.js"></script>
+    <link rel="icon" href="../cardClubsJ.png" type="image/png" />
+  </head>
+  <body>
+    <header>
+      <h1>BlackJack</h1>
+    </header>
+
+    <main>
+      <details>
+        <summary>Bankroll: $<span id="bankroll">1000</span></summary>
+        <summary>Bet: $<span id="bet">0</span></summary>
+        <button title="Select the amount you want to bet first from the chips" id="placebet">Place Bet</button>
+      </details>
+      <section id="chip-area" class="container">
+        <figure class="chip" value="1">
+          <img src="../images/chips/chipWhite_side.png" alt="White Chip">
+          <figcaption>$1</figcaption>
+        </figure>
+        <figure class="chip" value="5">
+          <img src="../images/chips/chipRedWhite_side.png" alt="Red Chip">
+          <figcaption.>$5</figcaption>
+        </figure>
+        <figure class="chip" value="25">
+          <img src="../images/chips/chipGreen_side.png" alt="Green Chip">
+          <figcaption>$25</figcaption>
+        </figure>
+        <figure class="chip" value="100">
+          <img src="../images/chips/chipBlackWhite_side.png" alt="Black Chip">
+          <figcaption>$100</figcaption>
+        </figure>
+        <figure class="chip" value="500">
+          <img src="../images/chips/chipBlue_side.png" alt="Blue Chip">
+          <figcaption>$500</figcaption>
+        </figure>
+      </section>
+      <section id="deal-section">
+        <button title="You need to place your be first before you may continue!" id="deal" disabled>Deal</button>
+      </section>
+      <section id="dealer-section" hidden>
+        <h2>Dealer: <span id="dealer-sum"></span></h2>
+        <article id="dealer-cards" class="card-container"></article>
+      </section>
+  
+      <section id="player-section" hidden>
+        <h2>Player: <span id="your-sum"></span></h2>
+        <article id="your-cards" class="card-container"></article>
+      </section>
+  
+      <section id="action-section" hidden>
+        <button id="hit">Hit</button>
+        <button id="stay">Stand</button>
+        <button id="new-game">New Game</button>
+      </section>
+    </main>
+
+    <footer>
+      <p id="results"></p>
+    </footer>
+
+  </body>
+</html>
