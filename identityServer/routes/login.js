@@ -50,8 +50,8 @@ router.post('/', async (req, res) => {
     console.log(OTP);
 
     const msg = {
-        to: 'slpotgieter1@gmail.com', // Change to your recipient
-        from: 'cooldude2233456@gmail.com', // Change to your verified sender
+        to: 'slpotgieter1@gmail.com', // NEED TO REQUEST FOR USER'S EMAIL TO SEND THIS TO
+        from: 'cooldude2233456@gmail.com', //LEAVE THIS AS IT IS
         subject: 'Here is your OTP',
         text: `Your OTP: ${OTP}`, 
     }
@@ -59,6 +59,8 @@ router.post('/', async (req, res) => {
     req.session.otp = OTP;
     req.session.email = msg.to;
     req.session.username = username;
+    
+    //IF UNCOMMENTED, IT WILL SEND AN EMAIL TO THE ABOVE ADDRESS
     /*
     sgMail
     .send(msg)
