@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/confirmOTP.css">
+    <title>BlackJack</title>
+    <script src="/javascript/confirmOTP.js"></script>
+</head>
+<body>
+    <h1 class="title">BlackJack</h1>
+    <p class="message">OTP sent to your email (will try to get this value) <span id="email"></span></p>
+
+    <form method="POST" action="/confirmOTP" class="form-container">
+      <label for="otp" class="form-label">Enter OTP:</label>
+      <input type="text" id="otp" name="otp" required class="form-input">
+
+      <button type="submit" class="form-submit">Submit</button>
+    </form>
+</body>
+</html>
