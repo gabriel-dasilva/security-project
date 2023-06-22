@@ -16,6 +16,7 @@ router.post('/', async (req, res) => {
     try {
       const username = req.body.username;
       const password = req.body.password;
+      const email = req.body.email;
       const confirmPassword = req.body.confirmPassword;
   
       // Check if the password and confirm password match
@@ -26,22 +27,8 @@ router.post('/', async (req, res) => {
       const salt = await bcrypt.genSalt();
       const hashedPass = await bcrypt.hash(password, salt);
 
-      await registerController.addUser(username, hashedPass);
+      await registerController.addUser(username, email, hashedPass);
 
-      const token = jwt.sign(
-        {username: username},
-        process.env.TOKEN_SECRET,
-        {
-          expiresIn: "1h"
-        }
-      );
-      
-      const user = {
-        username: username,
-        token: token
-      }
-      
-      res.status(201).send(user);
       res.redirect('/login');
     } catch (error) {
       console.error(error);

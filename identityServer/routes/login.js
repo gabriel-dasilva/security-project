@@ -29,10 +29,10 @@ const generateOTP = () => {
 router.post('/', async (req, res) => {
   try {
     const username = req.body.username;
-    const password = req.body.password;
-
     // Retrieve the user record from the database
     const user = await loginController.getUserByUsername(username);
+    const email = user.email;
+    const password = req.body.password;
 
     if (user === undefined) {
         console.log('it should execute the if statemnt')
@@ -50,14 +50,14 @@ router.post('/', async (req, res) => {
     console.log(OTP);
 
     const msg = {
-        to: 'slpotgieter1@gmail.com', // NEED TO REQUEST FOR USER'S EMAIL TO SEND THIS TO
-        from: 'cooldude2233456@gmail.com', //LEAVE THIS AS IT IS
-        subject: 'Here is your OTP',
-        text: `Your OTP: ${OTP}`, 
+        to: email, 
+        from: process.env.SENDGRID_EMAIL_ADDRESS, 
+        subject: 'YOUR OTP',
+        text: `OTP: ${OTP}`, 
     }
 
     req.session.otp = OTP;
-    req.session.email = msg.to;
+    req.session.email = email;
     req.session.username = username;
     
     //IF UNCOMMENTED, IT WILL SEND AN EMAIL TO THE ABOVE ADDRESS
@@ -75,23 +75,6 @@ router.post('/', async (req, res) => {
 
   res.redirect('/confirmOTP');
 
-  /*  
-    const token = jwt.sign(
-      {username: user.username},
-      process.env.TOKEN_SECRET,
-      {
-        expiresIn: "1h"
-      }
-    );
-
-    user.token = token;
-    tokenValue = {
-      'token': user.token,
-      
-    };
-
-    res.status(200).send(tokenValue);
-    */
     
   } catch (error) {
     console.error(error);

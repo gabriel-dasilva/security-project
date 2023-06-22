@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
     // want to use the email value to display on the html page, but i am stuck...
     const OTP = req.session.otp;
     const email = req.session.email;
+    // need to star out some of the chars for the email to display to user in a variable below
   
     const responseData = {
       email: email
@@ -42,14 +43,10 @@ router.get('/', (req, res) => {
             'token': user.token,
             
           };
-      
           res.status(200).send(tokenValue);
-
     }else{
         console.log("failed to log in!");
     }
-      
-  
       
     } catch (error) {
       console.error(error);
