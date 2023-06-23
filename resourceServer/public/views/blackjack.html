@@ -1,66 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Blackjack</title>
-    <link rel="stylesheet" type="text/css" href="../styles/blackjack.css">
-    <script defer src="../javascript/blackjack.js"></script>
-    <link rel="icon" href="../images/cardClubsJ.png" type="image/png" />
-  </head>
-  <body>
-    <header>
-      <h1>Blackjack</h1>
-    </header>
 
-    <main>
-      <p>Bankroll: $<span id="bankroll">1000</span></p>
-      <p>Bet: $<span id="bet">0</span></p>
-      <button title="Select the amount you want to bet first from the chips" id="placebet">Place Bet</button>
-      <section id="chip-area" class="container">
-        <figure class="chip" value="1">
-          <img src="../images/chips/chipWhite_side.png" alt="White Chip">
-          <figcaption>$1</figcaption>
-        </figure>
-        <figure class="chip" value="5">
-          <img src="../images/chips/chipRedWhite_side.png" alt="Red Chip">
-          <figcaption.>$5</figcaption>
-        </figure>
-        <figure class="chip" value="25">
-          <img src="../images/chips/chipGreen_side.png" alt="Green Chip">
-          <figcaption>$25</figcaption>
-        </figure>
-        <figure class="chip" value="100">
-          <img src="../images/chips/chipBlackWhite_side.png" alt="Black Chip">
-          <figcaption>$100</figcaption>
-        </figure>
-        <figure class="chip" value="500">
-          <img src="../images/chips/chipBlue_side.png" alt="Blue Chip">
-          <figcaption>$500</figcaption>
-        </figure>
-      </section>
-      <section id="deal-section">
-        <button title="You need to place your be first before you may continue!" id="deal" disabled>Deal</button>
-      </section>
+<head>
+  <meta charset="UTF-8">
+  <title>Blackjack</title>
+  <link rel="stylesheet" type="text/css" href="../styles/blackjack.css">
+  <script defer src="../javascript/blackjack.js"></script>
+  <link rel="icon" href="../images/cardClubsJ.png" type="image/png" />
+</head>
+
+<body>
+  <header>
+    <h1>Blackjack</h1>
+    <h2><span id="command">Let's Play</span></h2>
+    <button id="new-game" title="Start A New Game">New Game</button>
+  </header>
+
+  <main>
+    <section class="bet-info">
+      <summary>Bankroll: $<span id="bankroll">1000</span></summary>
+      <summary>Bet: $<span id="bet">0</span></summary>
+      <button class="bet-btn" title="Select the amount you want to bet first from the chips" id="placebet">Bet</button>
+    </section>
+    <section id="chip-area" class="container">
+      <figure class="chip" value="1">
+        <img src="../images/chips/chipWhite_side.png" alt="White Chip">
+        <figcaption>$1</figcaption>
+      </figure>
+      <figure class="chip" value="5">
+        <img src="../images/chips/chipRedWhite_side.png" alt="Red Chip">
+        <figcaption.>$5</figcaption>
+      </figure>
+      <figure class="chip" value="25">
+        <img src="../images/chips/chipGreen_side.png" alt="Green Chip">
+        <figcaption>$25</figcaption>
+      </figure>
+      <figure class="chip" value="100">
+        <img src="../images/chips/chipBlackWhite_side.png" alt="Black Chip">
+        <figcaption>$100</figcaption>
+      </figure>
+      <figure class="chip" value="500">
+        <img src="../images/chips/chipBlue_side.png" alt="Blue Chip">
+        <figcaption>$500</figcaption>
+      </figure>
+    </section>
+    <section id="deal-section">
+      <button title="You need to place your be first before you may continue!" id="deal" disabled>Deal</button>
+    </section>
+    <article class="game-area">
       <section id="dealer-section">
         <h2>Dealer: <span id="dealer-sum"></span></h2>
         <article id="dealer-cards" class="card-container"></article>
       </section>
-  
+
       <section id="player-section">
         <h2>Player: <span id="your-sum"></span></h2>
         <article id="your-cards" class="card-container"></article>
       </section>
-  
-      <section id="action-section" hidden>
-        <button id="hit">Hit</button>
-        <button id="stay">Stand</button>
-        <button id="new-game">New Game</button>
-      </section>
-    </main>
+    </article>
+    <section id="action-section" hidden>
+      <img id="hit" src="../images/hit.png">
+      <button id="exit-game" onclick="location.href = '../views/homepage.html'">Exit</button>
+      <img id="stay" src="../images/stand.png">
+    </section>
+  </main>
 
-    <footer>
-      <p id="results"></p>
-    </footer>
+  <footer id="game-outcome">
+    <h2><span id="results">Outcome of the Game</span></h2>
+  </footer>
 
-  </body>
+</body>
+
 </html>
