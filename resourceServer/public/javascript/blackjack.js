@@ -197,7 +197,7 @@ function newGame() {
     //document.getElementById("new-game").classList.remove("animate");
     document.getElementById("hit").disabled = true;
     document.getElementById("stay").disabled = true;    
-    document.getElementById("chip-area").style.display = "initial";
+    document.getElementById("chip-area").style.display = "block";
     document.getElementById("placebet").disabled = false;
     document.getElementById("placebet").style.display = "inline-block";
     document.getElementById("deal").style.display = "initial";
