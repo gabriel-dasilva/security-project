@@ -13,6 +13,6 @@ const config = {
   }
 } 
 
-const pool = new mssql.ConnectionPool(config).connect().then((pool) => {return pool;})
+const pool = new mssql.ConnectionPool(config).connect().then((conPool) => {return conPool;})
 
 module.exports = pool;
