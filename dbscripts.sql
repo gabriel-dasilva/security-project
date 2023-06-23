@@ -11,6 +11,7 @@ USE blackjack;
 CREATE TABLE [User] (
   userId INT IDENTITY(1,1) PRIMARY KEY,
   username VARCHAR(100),
+  email VARCHAR(100),
   password VARCHAR(300)
 )
 GO

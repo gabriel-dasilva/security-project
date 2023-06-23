@@ -1,7 +1,7 @@
 const mssql = require('mssql');
 const pool = require('../dbconnection/db');
 
-const addUser = (userName, password) => {
+const addUser = (userName, email, password) => {
     return new Promise((resolve, reject) => {
       pool.request()
           .input('username', mssql.VarChar,userName)
