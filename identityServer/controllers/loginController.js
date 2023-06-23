@@ -1,22 +1,21 @@
+const mssql = require('mssql');
 const pool = require('../dbconnection/db');
 
 
 
-const getUserByUsername = (userName) => {
-    return new Promise((resolve, reject) => {
-      pool.query(
-        'SELECT * FROM User WHERE username = ?',
-        [userName],
-        (error, results) => {
-          if (error) {
-            console.error('Error occurred when executing query: ', error);
-            reject(error);
-            return;
-          }
-          resolve(results[0]); 
-        }
-      );
-    });
+const getUserByUsername = async (userName) => {
+    const dbPool = await pool;
+    return await dbPool.request()
+          .input('username', mssql.VarChar,userName)
+          .query(
+            'SELECT * FROM User WHERE username = @username',
+            (error) => {
+              if (error) {
+                console.error('Error occurred when executing query: ', error);
+                return;
+              }
+            }
+          );
   };
 
   module.exports = {
