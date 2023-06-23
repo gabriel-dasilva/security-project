@@ -5,19 +5,17 @@
     <title>Blackjack</title>
     <link rel="stylesheet" type="text/css" href="../styles/blackjack.css">
     <script defer src="../javascript/blackjack.js"></script>
-    <link rel="icon" href="../cardClubsJ.png" type="image/png" />
+    <link rel="icon" href="../images/cardClubsJ.png" type="image/png" />
   </head>
   <body>
     <header>
-      <h1>BlackJack</h1>
+      <h1>Blackjack</h1>
     </header>
 
     <main>
-      <details>
-        <summary>Bankroll: $<span id="bankroll">1000</span></summary>
-        <summary>Bet: $<span id="bet">0</span></summary>
-        <button title="Select the amount you want to bet first from the chips" id="placebet">Place Bet</button>
-      </details>
+      <p>Bankroll: $<span id="bankroll">1000</span></p>
+      <p>Bet: $<span id="bet">0</span></p>
+      <button title="Select the amount you want to bet first from the chips" id="placebet">Place Bet</button>
       <section id="chip-area" class="container">
         <figure class="chip" value="1">
           <img src="../images/chips/chipWhite_side.png" alt="White Chip">
@@ -43,12 +41,12 @@
       <section id="deal-section">
         <button title="You need to place your be first before you may continue!" id="deal" disabled>Deal</button>
       </section>
-      <section id="dealer-section" hidden>
+      <section id="dealer-section">
         <h2>Dealer: <span id="dealer-sum"></span></h2>
         <article id="dealer-cards" class="card-container"></article>
       </section>
   
-      <section id="player-section" hidden>
+      <section id="player-section">
         <h2>Player: <span id="your-sum"></span></h2>
         <article id="your-cards" class="card-container"></article>
       </section>

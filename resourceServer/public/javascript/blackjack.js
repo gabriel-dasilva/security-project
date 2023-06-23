@@ -1,4 +1,3 @@
-
 let hidden;
 let actual;
 let deck;
@@ -6,12 +5,30 @@ let deck;
 let canHit = true; //allows the player (you) to draw while yourSum <= 21
 
 let bankroll = 1000;
-let bet = 0;//Set bet to an arbitrary value,once
-let dealerSum = 10;//set dealSum to an arbitrary value just for testing
-let yourSum = 11;//set yourSum to an arbitrary value just for testing
+let bet = 0; //Set bet to an arbitrary value,once
+let dealerSum = 0;//set dealSum to an arbitrary value just for testing
+let dealCards = [];
+let playerCards = [];
+let yourSum = 0;//set yourSum to an arbitrary value just for testing
+let message = ""
+let deckJson = '';
 
 let overlay = null;
 let gameInProgress = false;
+
+const cardValues =  '{ "1":1 ,' +
+                    '"2":2 ,' +
+                    '"3":3 ,' +
+                    '"4":4 ,' +
+                    '"5":5 ,' +
+                    '"6":6 ,' +
+                    '"7":7 ,' +
+                    '"8":8 ,' +
+                    '"9":9 ,' +
+                    '"10":10 ,' +
+                    '"J":10 ,' +
+                    '"Q":10 ,' +                    
+                    '"K":10 }'; 
 
 const chipSound = new Audio('../sound/sound.ogg');
 window.onload = function () {
@@ -29,6 +46,7 @@ window.onload = function () {
                 chip.disabled = true; // This will make the chip unclickable
             } else {
                 // Normal chip click handling
+                document.getElementById("placebet").disabled = false;
                 bankroll -= chipValue;
                 bet += chipValue;
                 playSound();
@@ -41,6 +59,7 @@ window.onload = function () {
 function playSound() {
     chipSound.play();
 }
+
 function buildDeck() {
 
     //For testing purposes.Logic needs to be replaced by the fetch call.
@@ -69,34 +88,41 @@ function startGame() {
     //For testing purposes.Logic needs to be replaced by the fetch call.
     gameInProgress = true;
     document.getElementById("placebet").addEventListener("click", placebet);
+    document.getElementById("placebet").disabled = true;
     document.getElementById("hit").disabled = true;
     document.getElementById("stay").disabled = true;
     hidden = deck.pop();
     actual = hidden;
+    dealerSum = 0;
+    yourSum = 0;
 
     let hiddenCardImg = document.createElement("img");
     hiddenCardImg.src = "../images/cards/BACK.png";
     document.getElementById("dealer-cards").append(hiddenCardImg);
-
+    document.getElementById("dealer-section").style.display = "none";
     let dealerCards = document.getElementById("dealer-cards");
-    while (dealerSum < 17) {
-        let cardImg = document.createElement("img");
-        let card = deck.pop();
-        cardImg.src = "../images/cards/" + card + ".png";
-        dealerSum += getValue(card);
-        cardImg.style.transform = `translateX(${-(dealerCards.childElementCount * 70)}px)`;
-        dealerCards.append(cardImg);
-    }
 
+    let cardImg = document.createElement("img");
+    let card = deck.pop();
+    cardImg.src = "../images/cards/" + card + ".png";
+    dealCards.push(card);
+    dealerSum = checkBust(dealCards)[1];
+    cardImg.style.transform = `translateX(${-(dealerCards.childElementCount * 70)}px)`;
+    dealerCards.append(cardImg);    
+
+    document.getElementById("player-section").style.display = "none";
     let yourCards = document.getElementById("your-cards");
     for (let i = 0; i < 2; i++) {
         let cardImg = document.createElement("img");
         let card = deck.pop();
-        cardImg.src = "../images/cards/" + card + ".png";
-        yourSum += getValue(card);
+        playerCards.push(card);
+        cardImg.src = "../images/cards/" + card + ".png";        
         cardImg.style.transform = `translateX(${-(yourCards.childElementCount * 70)}px)`;
         yourCards.append(cardImg);
     }
+    playerResult = checkBust(playerCards);
+    yourSum = playerResult[1];
+    canHit = playerResult[0];
 
     document.getElementById("hit").addEventListener("click", hit);
     document.getElementById("stay").addEventListener("click", stay);
@@ -106,6 +132,50 @@ function startGame() {
     updateBetAndBankroll();
 }
 
+let checkBust = (cards) => {
+    const cardVals = JSON.parse(cardValues);
+    let cardSum = 0;
+    let numberOfAs = 0;
+    let allowedToHit = false;
+
+    if(cards != null){
+        for(let i=0;i<cards.length;i++){
+            let c = cards[i].charAt(0);
+            let t = cards[i].charAt(1);
+            if(c !== 'A'){
+                if(t !== '0'){
+                    cardSum += cardVals[c];
+                }
+                else{
+                    cardSum += cardVals['10'];
+                }
+            }
+            else if(c === 'A'){
+                numberOfAs += 1;
+            }
+        }
+
+        if(numberOfAs > 0){
+            for(let i=0;i<numberOfAs;i++){
+                if(cardSum + 11 > 21){
+                    cardSum += 1;
+                }
+                else if(cardSum + 11 <= 21){
+                    cardSum += 11;
+                }
+            }
+        }
+    }
+
+    if(cardSum < 21){
+        allowedToHit = true;
+    }
+    else{
+        allowedToHit = false;
+    }
+
+    return [allowedToHit, cardSum];
+}
 
 function createCard(card, index) {
     let cardImg = document.createElement("img");
@@ -114,26 +184,35 @@ function createCard(card, index) {
     return cardImg;
 }
 
-
 function newGame() {
     //For testing purposes.Logic needs to be replaced by the fetch call.
+    console.log('Running new game');
     canHit = true;
     bet = 0;
-    bankroll = 1000;
+    dealerSum = 0;
+    yourSum = 0;
+    dealCards = [];
+    playerCards = [];
 
-    document.getElementById("new-game").classList.remove("animate");
+    //document.getElementById("new-game").classList.remove("animate");
     document.getElementById("hit").disabled = true;
-    document.getElementById("stay").disabled = true;
+    document.getElementById("stay").disabled = true;    
+    document.getElementById("chip-area").style.display = "initial";
     document.getElementById("placebet").disabled = false;
+    document.getElementById("placebet").style.display = "inline-block";
+    document.getElementById("deal").style.display = "initial";
+    document.getElementById("dealer-section").style.display = "none";
     document.getElementById("dealer-cards").innerHTML = '';
+    document.getElementById("player-section").style.display = "none";
+    document.getElementById("new-game").style.display = "none";
     document.getElementById("your-cards").innerHTML = '';
     document.getElementById("dealer-sum").innerText = '';
     document.getElementById("your-sum").innerText = '';
     document.getElementById("results").innerText = '';
 
-
     buildDeck();
     shuffleDeck();
+
     document.getElementById("placebet").removeEventListener("click", placebet);
     document.getElementById("deal").removeEventListener("click", deal);
     document.getElementById("hit").removeEventListener("click", hit);
@@ -143,12 +222,11 @@ function newGame() {
     startGame();
 }
 
-
-
 function hit() {
-    if (!canHit) {
-        return;
-    }
+    canHit = checkBust(playerCards)[0];
+    console.log('Player sum: ' + checkBust(playerCards)[1])
+    console.log('Player can hit: ' + canHit);
+    
     if (deck.length === 0) {
         buildDeck();
         shuffleDeck();
@@ -156,6 +234,7 @@ function hit() {
 
     let cardImg = document.createElement("img");
     let card = deck.pop();
+    playerCards.push(card);
     cardImg.src = "../images/cards/" + card + ".png";
 
     let yourCards = document.getElementById("your-cards");
@@ -164,8 +243,55 @@ function hit() {
     }
     yourCards.append(cardImg);
 
+    canHit = checkBust(playerCards)[0];
+    console.log('Player sum: ' + checkBust(playerCards)[1])
+    console.log('Player can hit: ' + canHit);
+
+    canHit = checkBust(playerCards)[0];
+    yourSum = checkBust(playerCards)[1];
+
+    if (!canHit) {
+        console.log("Player cannot hit");
+        stay();
+    }
 }
 
+function runDealerLogic() {
+    console.log('Running dealer logic');
+    let dealerHit = true;
+
+    while(dealerHit == true && dealerSum < 17 && canHit == true){
+        let dealerCards = document.getElementById("dealer-cards");
+        let cardImg = document.createElement("img");
+        let card = deck.pop();
+        cardImg.src = "../images/cards/" + card + ".png";
+        dealCards.push(card);
+        cardImg.style.transform = `translateX(${-(dealerCards.childElementCount * 70)}px)`;
+        dealerCards.append(cardImg);
+        dealerResult = checkBust(dealCards);
+        dealerHit = dealerResult[0];
+        dealerSum = dealerResult[1];
+    }
+
+    if((dealerHit == true || yourSum === 21) && yourSum !== 21 && (dealerSum > yourSum || canHit == false)){
+        displayResults('Dealer won');
+        payPlayer(false);
+        console.log('Dealer won');
+    }
+    else if((canHit == true || yourSum === 21) && (yourSum > dealerSum || dealerHit == false)){
+        displayResults('Player won');
+        payPlayer(true);
+        console.log('Player won');
+    }
+    else{
+        displayResults('Dealer won');
+        payPlayer(false);
+        console.log('Dealer won cause both busted');
+    }
+
+    document.getElementById("hit").style.display = "none";
+    document.getElementById("stay").style.display = "none";
+}
 
 function showOverlay() {
     if (!overlay) {
@@ -190,28 +316,30 @@ function showOverlay() {
 function placebet() {
     //For testing purposes.Logic needs to be replaced by the fetch call.
     //set bet to a dummy value,this will be replaced by the value retrieved from the backend
-    bet = 100;
+    
+    bet = document.getElementById("bet").innerText;
+    console.log("Bet: " + bet);
 
     if (bet > 0) {
-
-        document.getElementById("placebet").style.display = "none";
+        document.getElementById("chip-area").style.display = "none";
         document.getElementById("placebet").disabled = true;
-        document.getElementById("deal").disabled = false;
-
+        document.getElementById("placebet").style.display = "none";
+        document.getElementById("deal").disabled = false;        
     }
 }
 
 function deal() {
     document.getElementById("deal").disabled = true;
-    document.getElementById("deal").style.display = "none";
     document.getElementById("hit").disabled = false;
     document.getElementById("stay").disabled = false;
-    document.getElementById("deal").style.display = "none";
 
     document.getElementById("dealer-section").style.display = "block";
     document.getElementById("player-section").style.display = "block";
     document.getElementById("action-section").style.display = "block";
-
+    document.getElementById("hit").style.display = "inline";
+    document.getElementById("stay").style.display = "inline";
+    document.getElementById("new-game").style.display = "none";
+    document.getElementById("deal").style.display = "none";
 }
 
 function hideOverlay() {
@@ -224,14 +352,14 @@ function hideOverlay() {
 function stay() {
     //For testing purposes.Sensitive logic  needs to be replaced by the fetch call.
 
-    canHit = false;
     gameInProgress = false;
+
+    runDealerLogic();
 
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("your-sum").innerText = yourSum;
     showOverlay();
-    setTimeout(hideOverlay, 3000);
-    document.getElementById("results").innerText = message;
+    setTimeout(hideOverlay, 2000);
     bet = 0;
     updateBetAndBankroll();
     let dealerCardsContainer = document.getElementById("dealer-cards");
@@ -249,59 +377,39 @@ function stay() {
         startNewRound();
     }, 5000);
 }
+
 function startNewRound() {
 
     gameInProgress = true;
     let resultsElement = document.getElementById("results");
-    resultsElement.style.opacity = "0";
 
-
-    document.getElementById("new-game").classList.remove("animate");
+    //document.getElementById("new-game").classList.remove("animate");
     document.getElementById("hit").disabled = false;
     document.getElementById("stay").disabled = false;
 
     document.getElementById("dealer-cards").innerHTML = '';
     document.getElementById("your-cards").innerHTML = '';
-    document.getElementById("dealer-sum").innerText = '';
-    document.getElementById("your-sum").innerText = '';
-
-    buildDeck();
-    shuffleDeck();
 
     // Display the "New Round! Place your bets." message after 2 seconds
     setTimeout(() => {
         resultsElement.innerText = "New Round! Place your bets.";
+        document.getElementById("new-game").style.display = "inline";
         resultsElement.style.opacity = "1";
     }, 2000);
 }
 
-
 function displayNewRoundMessage() {
-    let message = "New Round! Place your bets.";
-    document.getElementById("results").innerText = message;
-}
-
-
-function displayResults() {
-    let message = "Display Message";
-
+    message = "New Round! Place your bets.";
+    document.getElementById("results").innerText = message;    
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("your-sum").innerText = yourSum;
-
-    return message;
 }
 
-function getValue(card) {
-    let data = card.split("-");
-    let value = data[0];
-
-    if (isNaN(value)) {
-        if (value == "A") {
-            return 11;
-        }
-        return 10;
-    }
-    return parseInt(value);
+function displayResults(message) {
+    console.log('Message: ' + message);
+    document.getElementById("dealer-sum").innerText = dealerSum;
+    document.getElementById("your-sum").innerText = yourSum;
+    document.getElementById("results").innerText = message;
 }
 
 function updateBetAndBankroll() {
@@ -312,5 +420,18 @@ function updateBetAndBankroll() {
         document.getElementById("hit").disabled = true;
         document.getElementById("stay").disabled = true;
         document.getElementById("new-game").classList.add("animate");
+    }
+}
+
+function payPlayer(playerWon){
+    if(playerWon){
+        console.log("Paying player: $" + 2*bet);
+        bankroll += 2* bet;
+        console.log("New bank roll: $" + bankroll);
+    }
+    else if(!playerWon){
+        console.log("Taking from player: $" + bet);
+        bankroll -= bet;
+        console.log("New bank roll: $" + bankroll);
     }
 }
