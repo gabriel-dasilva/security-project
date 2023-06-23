@@ -1,12 +1,20 @@
+USE master
 
-CREATE database blackjack;
+IF EXISTS(select * from sys.databases where name='blackjack')
+DROP DATABASE blackjack;
 
-CREATE TABLE User (
-  userId INT AUTO_INCREMENT PRIMARY KEY,
+CREATE DATABASE blackjack;
+GO
+
+USE blackjack;
+
+CREATE TABLE [User] (
+  userId INT IDENTITY(1,1) PRIMARY KEY,
   username VARCHAR(100),
   email VARCHAR(100),
   password VARCHAR(300)
-);
+)
+GO
 
 
 -- need to run this command below for connection to work (replace username with your own)
