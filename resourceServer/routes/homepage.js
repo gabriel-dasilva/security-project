@@ -5,7 +5,7 @@ const router = express.Router();
 app.use(express.json());
 
 router.get('/', (req, res) => {
-  res.sendFile('views/test.html', { root: 'public' });
+  res.sendFile('views/homepage.html', { root: 'public' });
 });
 
 module.exports = router;

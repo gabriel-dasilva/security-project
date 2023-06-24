@@ -4,8 +4,183 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello World</title>
+    <script type="text/javascript" src="../javascript/gameLogic.js"></script>
 </head>
 <body>
-    <div>Hello World!</div>
+    <p id="playerCards"></p>
+    <p id="playerScore"></p>
+    <p id="playerWinnings"></p>
+    <p id="playerBet"></p>
+    <p id="dealerCards"></p>
+    <p id="dealerScore"></p>
+    <button onclick="hitPlayer()">Hit me!</button>
+    <button onclick="runDealerLogic()">I'm good!</button>
+    <button onclick="startGame()">Start Game</button>
+    <p id="winner"></p>
+
+    <script>
+        let playerCards = [];
+        let playerScore = 0;
+        let playerBust = false;
+        let playerBet = 10;
+        let playerWinnings = 100;
+        let dealerScore = 0;
+        let dealerCards = [];
+        let allCards = '';
+        let winner = '';  
+        
+        clearFields = () => {
+            playerCards = [];
+            playerScore = 0;
+            playerBust = false;
+            dealerScore = 0;
+            dealerCards = [];
+            allCards = '';
+            winner = '';  
+        }
+
+        updateFields = () => {
+            document.getElementById("playerCards").innerText = "Player Cards: " + playerCards;
+            document.getElementById("playerScore").innerText = "Player Score: " + playerScore;
+            document.getElementById("playerWinnings").innerText = "Player Winnings: R" + playerWinnings;
+            document.getElementById("playerBet").innerText = "Player Bet: R" + playerBet;
+            document.getElementById("dealerCards").innerText = "Dealer Cards: " + dealerCards;
+            document.getElementById("dealerScore").innerText = "Dealer Score: " + dealerScore;
+
+            if(winner.length > 0){
+                document.getElementById("winner").innerText = winner + " is the Winner!!!!";
+            }
+            else{
+                document.getElementById("winner").innerText = "";
+            }
+        }
+
+        combineAllCards = () => {
+            allCards = playerCards.concat(dealerCards);
+        }
+
+        hitPlayer = () => {        
+            
+                if(playerBust == false){
+                    playerCards.push(getHitCard(allCards));
+                    playerResult = checkBust(playerCards);
+                    playerBust = playerResult[0];
+                    playerScore = playerResult[1];
+                    updateFields();
+                }
+
+                if(playerBust == false){
+                    console.log('Your cards are: ' + playerCards);
+                    console.log('Your score is: ' + playerScore);
+                }
+                else{
+                    console.log('You busted!');
+                    console.log('Your cards are: ' + playerCards);
+                    console.log('Your score is: ' + playerScore);
+                    runDealerLogic();
+                }
+            
+        }
+        
+        payPlayer = () => {
+            playerWinnings += (2*playerBet);
+        }
+        
+        getPlayerStartingCards = () => {
+            playerCards.push(getHitCard(allCards));
+            combineAllCards()
+            playerCards.push(getHitCard(allCards));
+            combineAllCards()
+            playerResult = checkBust(playerCards);
+            playerBust = playerResult[0];
+            playerScore = playerResult[1];
+
+            console.log(`Player's cards are: ` + playerCards)
+        }
+
+        getDealerStartingCards = () => {
+            dealerCards.push(getHitCard(allCards));
+            combineAllCards()
+            dealerCards.push(getHitCard(allCards));
+            combineAllCards()
+            dealerResult = checkBust(dealerCards);
+            dealerBust = dealerResult[0];
+            dealerScore = dealerResult[1];
+
+            console.log(`Dealer's cards are: ` + dealerCards)
+        }
+        
+        runDealerLogic = () => {
+            let dealerBust = false;
+            sleep(1000);
+            while(dealerBust == false && dealerScore < 17 && playerBust == false){
+                dealerCards.push(getHitCard(allCards));
+                console.log(`Dealer's cards are: ` + dealerCards)
+                dealerResult = checkBust(dealerCards);
+                dealerBust = dealerResult[0];
+                dealerScore = dealerResult[1];
+                console.log('Updating dealer fields');
+                updateFields();
+                if(dealerBust == true){
+                    console.log('The dealer is bust. Their score is: ' + dealerScore);
+                }
+                else{
+                    console.log('The dealer is not bust. Their score is: ' + dealerScore);
+                }
+                sleep(1000);
+            }
+
+            if(dealerBust == false && (dealerScore > playerScore || playerBust == true)){
+                console.log('Dealer won');
+                winner = 'Dealer';
+            }
+            else if(playerBust == false && (playerScore > dealerScore || dealerBust == true)){
+                console.log('Player won');
+                winner = 'Player';
+                payPlayer();
+            }
+            else{
+                console.log('Dealer won cause both busted');
+                winner = 'Dealer';
+            }
+
+            updateFields();
+        }
+
+        checkBus = () => {
+            console.log('Running checkBust function');
+            let x = checkBust(cards);
+            if(x[0] == true){
+                console.log('The person is bust. Their score is: ' + x[1]);
+            }
+            else{
+                console.log('The person is not bust. Their score is: ' + x[1]);
+            }
+            
+        }
+
+        sleep = (milliseconds) => {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
+        }
+
+        startGame = () => {
+            if(playerWinnings > 0 && playerBet < playerWinnings){
+                clearFields();
+                playerWinnings -= playerBet;
+                getDealerStartingCards();
+                getPlayerStartingCards();
+                updateFields();
+            }
+            else{
+                console.log('Player does not have any money!')
+            }
+        }
+        
+    </script>
 </body>
+
 </html>
