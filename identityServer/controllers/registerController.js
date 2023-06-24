@@ -5,19 +5,26 @@ const pool = require('../dbconnection/db');
 
 const addUser = async (userName, email, password) => {
     const dbPool = await pool;
-    return await dbPool.request()
-          .input('username', mssql.VarChar,userName)
-          .input('password', mssql.VarChar, password)
-          .query(
-            'INSERT INTO [User] (username, password) VALUES (@username, @password)',
-            (error) => {
-              if (error) {
-                console.error('Error occurred when executing query: ', error);
-                return;
-              }
-            }
-        );
-  };
+
+    try {
+      const ps = new mssql.PreparedStatement(dbPool);
+      
+      ps.input('username', mssql.VarChar,userName);
+      ps.input('password', mssql.VarChar, password);
+      ps.input('email', mssql.VarChar, email);
+
+      const stmt = 'INSERT INTO [User] (username, email,password) VALUES (@username, @email, @password)';
+
+      await ps.prepare(stmt);
+      await ps.execute({
+        username: userName,
+        email: email,
+        password: password
+      });
+    } catch(err) {
+      console.error(err);
+    }
+};
 
   module.exports = {
     addUser,
