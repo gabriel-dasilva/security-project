@@ -9,16 +9,12 @@ const loginController = require('../controllers/loginController');
 app.use(express.json());
 
 router.get('/', (req, res) => {
-    // want to use the email value to display on the html page, but i am stuck...
+    // function to star out the email address here*****
     const OTP = req.session.otp;
     const email = req.session.email;
-    // need to star out some of the chars for the email to display to user in a variable below
-  
-    const responseData = {
-      email: email
-    };
-  
-    res.sendFile('confirmOTP.html', { root: 'public/views' }); 
+    console.log(email);
+    res.json({email});
+
   });
 
   router.post('/', async (req, res) => {

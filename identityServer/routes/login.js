@@ -73,7 +73,7 @@ router.post('/', async (req, res) => {
 
   */
 
-  res.redirect('/confirmOTP');
+  res.redirect('http://localhost:3000/views/confirmOTP.html');
 
     
   } catch (error) {
