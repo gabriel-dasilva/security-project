@@ -8,17 +8,24 @@ const loginController = require('../controllers/loginController');
 
 app.use(express.json());
 
+function maskEmail(email) {
+  const atIndex = email.indexOf('@');
+  if (atIndex > 1) {
+    const username = email.substring(0, atIndex);
+    const maskedUsername = username.slice(0, 2) + '*'.repeat(username.length - 2);
+    const domain = email.substring(atIndex);
+    return maskedUsername + domain;
+  }
+  return email;
+}
+
 router.get('/', (req, res) => {
-    // want to use the email value to display on the html page, but i am stuck...
+    // function to star out the email address here*****
     const OTP = req.session.otp;
     const email = req.session.email;
-    // need to star out some of the chars for the email to display to user in a variable below
-  
-    const responseData = {
-      email: email
-    };
-  
-    res.sendFile('confirmOTP.html', { root: 'public/views' }); 
+    let maskedEmail = maskEmail(email);
+    res.json({maskedEmail});
+
   });
 
   router.post('/', async (req, res) => {
