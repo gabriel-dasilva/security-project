@@ -4,7 +4,7 @@ let deck;
 
 let canHit = true; //allows the player (you) to draw while yourSum <= 21
 
-let bankroll = 1000;
+let bankroll = 0;
 let bet = 0; //Set bet to an arbitrary value,once
 let dealerSum = 0;//set dealSum to an arbitrary value just for testing
 let dealCards = [];
@@ -12,6 +12,7 @@ let playerCards = [];
 let yourSum = 0;//set yourSum to an arbitrary value just for testing
 let message = ""
 let deckJson = '';
+let username = 'test'
 
 let overlay = null;
 let gameInProgress = false;
@@ -32,10 +33,10 @@ const cardValues =  '{ "1":1 ,' +
 
 const chipSound = new Audio('../sound/sound.ogg');
 window.onload = function () {
+    getUserBankRoll();
     buildDeck();
     shuffleDeck();
-    startGame();
-
+    startGame();    
     let chips = document.querySelectorAll('.chip');
     chips.forEach(chip => {
         chip.addEventListener('click', function () {
@@ -186,7 +187,6 @@ function createCard(card, index) {
 
 function newGame() {
     //For testing purposes.Logic needs to be replaced by the fetch call.
-    console.log('Running new game');
     canHit = true;
     bet = 0;
     dealerSum = 0;
@@ -224,8 +224,6 @@ function newGame() {
 
 function hit() {
     canHit = checkBust(playerCards)[0];
-    console.log('Player sum: ' + checkBust(playerCards)[1])
-    console.log('Player can hit: ' + canHit);
     
     if (deck.length === 0) {
         buildDeck();
@@ -244,20 +242,16 @@ function hit() {
     yourCards.append(cardImg);
 
     canHit = checkBust(playerCards)[0];
-    console.log('Player sum: ' + checkBust(playerCards)[1])
-    console.log('Player can hit: ' + canHit);
 
     canHit = checkBust(playerCards)[0];
     yourSum = checkBust(playerCards)[1];
 
     if (!canHit) {
-        console.log("Player cannot hit");
         stay();
     }
 }
 
 function runDealerLogic() {
-    console.log('Running dealer logic');
     let dealerHit = true;
 
     while(dealerHit == true && dealerSum < 17 && canHit == true){
@@ -276,17 +270,14 @@ function runDealerLogic() {
     if((dealerHit == true || yourSum === 21) && yourSum !== 21 && (dealerSum > yourSum || canHit == false)){
         displayResults('Dealer won');
         payPlayer(false);
-        console.log('Dealer won');
     }
     else if((canHit == true || yourSum === 21) && (yourSum > dealerSum || dealerHit == false)){
         displayResults('Player won');
         payPlayer(true);
-        console.log('Player won');
     }
     else{
         displayResults('Dealer won');
         payPlayer(false);
-        console.log('Dealer won cause both busted');
     }
 
     document.getElementById("hit").style.display = "none";
@@ -318,7 +309,6 @@ function placebet() {
     //set bet to a dummy value,this will be replaced by the value retrieved from the backend
     
     bet = document.getElementById("bet").innerText;
-    console.log("Bet: " + bet);
 
     if (bet > 0) {
         document.getElementById("chip-area").style.display = "none";
@@ -406,7 +396,6 @@ function displayNewRoundMessage() {
 }
 
 function displayResults(message) {
-    console.log('Message: ' + message);
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("your-sum").innerText = yourSum;
     document.getElementById("results").innerText = message;
@@ -425,13 +414,55 @@ function updateBetAndBankroll() {
 
 function payPlayer(playerWon){
     if(playerWon){
-        console.log("Paying player: $" + 2*bet);
         bankroll += 2* bet;
-        console.log("New bank roll: $" + bankroll);
     }
     else if(!playerWon){
-        console.log("Taking from player: $" + bet);
         bankroll -= bet;
-        console.log("New bank roll: $" + bankroll);
     }
+    
+    updateUserBankRoll(username, bankroll);
+}
+
+async function getUserBankRoll(username){
+    username = 'test'    
+
+    const userBankroll = async (user) => {
+
+      let response = await fetch('/blackjack/userBankRoll', {
+        method: 'POST',
+        body: JSON.stringify({ "username" : user }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+
+      const myJson = await response.json();
+      return myJson;
+    }
+
+    const bank = await userBankroll(username);
+    if(bank !== undefined){
+        bankroll = bank;
+        document.getElementById('bankroll').innerText = bankroll;        
+    }
+    else{
+        bankroll = 1;
+        document.getElementById('bankroll').innerText = 1;
+    }
+}
+
+async function updateUserBankRoll(username, bankroll){
+    username='test';
+    let response = await fetch('/blackjack/userBankRoll/update', {
+        method: 'POST',
+        body: JSON.stringify({ "username" : username,
+                                "bankroll" : bankroll }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+
+      if(response.status === 500){
+        console.log("Error occurred in updating user bankroll");
+      }
 }
