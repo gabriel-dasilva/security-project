@@ -45,3 +45,7 @@ body {
 .form-submit:hover {
     background-color: #45a049;
 }
+
+p {
+    text-align: center;
+}
