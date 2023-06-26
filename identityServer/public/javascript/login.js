@@ -23,6 +23,8 @@ loginForm.addEventListener('submit', (event) => {
       console.log(errorMessage);
     } else {
       console.log('success');
+      const { username } = data;
+      localStorage.setItem('username', username);
       window.location.href = 'http://localhost:3000/views/confirmOTP.html'; // Redirect on success
     }
   })
