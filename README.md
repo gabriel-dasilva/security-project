@@ -1,6 +1,6 @@
 # security-project
 basic website making use of sessions and secure login
-## project directory structure
+## project-directory structure
 ```bash
 🌳 security-project-main
 ├── 📂 identityServer
