@@ -28,7 +28,8 @@ router.post('/', async (req, res) => {
       const hashedPass = await bcrypt.hash(password, salt);
 
       await registerController.addUser(username, email, hashedPass);
-
+      await registerController.addUserBankroll(username);
+      
       res.redirect('/login');
     } catch (error) {
       console.error(error);
