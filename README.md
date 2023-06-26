@@ -16,8 +16,8 @@ basic website making use of sessions and secure login
 │       │   ├── 📄 confirmOTP.js
 │       │   └── 📄 login.js
 │       ├── 📂 styles
-│       │   ├── 📄 auth.scss
-│       │   └── 📄 otp.scss
+│       │   ├── 📄 auth.css
+│       │   └── 📄 otp.css
 │       └── 📂 views
 │           ├── 📄 confirmOTP.html
 │           ├── 📄 login.html
@@ -43,8 +43,8 @@ basic website making use of sessions and secure login
 │       │   ├── 📄 blackjack.js
 │       │   └── 📄 gameLogic.js
 │       ├── 📂 styles
-│       │   ├── 📄 game.scss
-│       │   └── 📄 homepage.scss
+│       │   ├── 📄 game.css
+│       │   └── 📄 homepage.css
 │       └── 📂 views
 │           ├── 📄 blackjack.html
 │           ├── 📄 homepage.html
