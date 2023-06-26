@@ -2,10 +2,11 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const userController = require('../controllers/userController');
+const verifyToken = require('../middleware/auth');
 
 app.use(express.json());
 
-router.post('/userBankRoll', async (req, res) => {
+router.post('/userBankRoll', verifyToken, async (req, res) => {
   console.log("Getting user bankroll")
   try {
     const username = req.body.username;     
@@ -17,7 +18,7 @@ router.post('/userBankRoll', async (req, res) => {
   }
 });
 
-router.post('/userBankRoll/update', async (req, res) => {
+router.post('/userBankRoll/update', verifyToken, async (req, res) => {
   console.log("Updating user bankroll")
   try {
     const username = req.body.username;     
