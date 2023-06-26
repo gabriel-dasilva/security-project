@@ -8,7 +8,7 @@
   <link rel="icon" href="../cardClubsJ.png" type="image/png" />
 </head>
 <body>
-  <header>
+   <header>
     <h1>Blackjack Game Tournament</h1>
     <nav>
       <ul>
@@ -17,10 +17,14 @@
         <li><a href="#prizes">Tournament Prizes</a></li>
       </ul>
       <figure id="userIcon">
-        <img src="../images/user_icon.jpg" alt="User Icon">
-        <figcaption id="userName"></figcaption>
+        <img src="../images/user_icon.jpg" alt="User Icon">Welcome,
+        <script>
+          const username = localStorage.getItem('username');
+          document.getElementById('username').innerText = username;
+        </script>
+        <figcaption id="username"></figcaption>
       </figure>
-      <button onclick="location.href = '../../../identityServer/public/views/login.html'" id="logout">Logout</button>
+      <button onclick="location.href = '../views/blackjack.html'" id="logout">Logout</button>
     </nav>
   </header>
   
