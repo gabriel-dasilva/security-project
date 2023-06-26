@@ -43,8 +43,8 @@ router.get('/', (req, res) => {
             }
           );
 
-          const thirtyMinutes = 30 * 60 * 1000;
-          const expiryDate = new Date(Date.now() + thirtyMinutes);
+          const fifteenMinutes = 15 * 60 * 1000;
+          const expiryDate = new Date(Date.now() + fifteenMinutes);
       
           user.token = token;
           res.cookie('token', token, {
