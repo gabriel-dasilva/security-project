@@ -25,7 +25,7 @@ loginForm.addEventListener('submit', (event) => {
       console.log(errorMessage);
     } else {
       console.log('success');
-      window.location.href = 'http://localhost:3000/views/login.html'; 
+      window.location.href = 'https://9hhswbztrc.us-east-1.awsapprunner.com/login'; 
     }
   })
   .catch(error => {
