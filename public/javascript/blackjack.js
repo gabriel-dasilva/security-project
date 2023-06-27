@@ -12,7 +12,7 @@ let playerCards = [];
 let yourSum = 0;//set yourSum to an arbitrary value just for testing
 let message = ""
 let deckJson = '';
-let username = '';
+let username = 'test';
 
 let overlay = null;
 let gameInProgress = false;
@@ -449,6 +449,10 @@ async function getUserBankRoll(){
     else{
         bankroll = 1;
         document.getElementById('bankroll').innerText = 1;
+    }
+
+    if(username ==='test'){
+        bankroll = 500;
     }
 }
 
