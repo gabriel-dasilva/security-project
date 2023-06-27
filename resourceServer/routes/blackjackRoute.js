@@ -6,9 +6,8 @@ const verifyToken = require('../middleware/auth');
 
 app.use(express.json());
 
-router.post('/userBankRoll', async (req, res) => {
+router.post('/userBankRoll', verifyToken, async (req, res) => {
   console.log("Getting user bankroll")
-  console.log(req.cookies.access_token);
   try {
     const username = req.body.username;     
     const userBankroll = await userController.getBankrollByUsername(username);
@@ -19,7 +18,7 @@ router.post('/userBankRoll', async (req, res) => {
   }
 });
 
-router.post('/userBankRoll/update', async (req, res) => {
+router.post('/userBankRoll/update', verifyToken, async (req, res) => {
   console.log("Updating user bankroll")
   try {
     const username = req.body.username;     
