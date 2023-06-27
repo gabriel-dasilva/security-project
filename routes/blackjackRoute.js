@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
   res.sendFile('views/blackjack.html', { root: 'public' });
 });
 
-router.post('/userBankRoll', verifyToken, async (req, res) => {
+router.post('/userBankRoll', async (req, res) => {
   console.log("Getting user bankroll")
   try {
     const username = req.body.username;     
@@ -40,7 +40,7 @@ router.post('/userBankRoll', verifyToken, async (req, res) => {
   }
 });
 
-router.post('/userBankRoll/update', verifyToken, async (req, res) => {
+router.post('/userBankRoll/update', async (req, res) => {
   console.log("Updating user bankroll")
   try {
     const username = req.body.username;     
