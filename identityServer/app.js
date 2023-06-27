@@ -4,10 +4,12 @@ const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const otpRoute = require('./routes/confirmOTP');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const bodyParser = require('body-parser');
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(
     session({
