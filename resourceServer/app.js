@@ -14,5 +14,5 @@ app.use('/', homepageRoute);
 app.use('/blackjack', blackjackMainPage);
 
 app.listen(8080, () => {
-    console.log(`Now listening on port 4000`);
+    console.log(`Now listening on port 8080`);
 }); 
