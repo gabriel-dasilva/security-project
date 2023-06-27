@@ -18,10 +18,18 @@ router.post('/', async (req, res) => {
       const password = req.body.password;
       const email = req.body.email;
       const confirmPassword = req.body.confirmPassword;
+
+      console.log(password);
+      console.log(confirmPassword);
   
+      const minPasswordLength = 10;
       // Check if the password and confirm password match
       if (password !== confirmPassword) {
-        return res.status(400).send('Passwords do not match');
+        return res.status(401).json({ error: 'Passwords do not match' });
+      }
+      // Check password length
+      if (password.length < minPasswordLength) {
+        return res.status(401).json({ error: `Password should be greater than ${minPasswordLength} characters`});
       }
   
       const salt = await bcrypt.genSalt();
@@ -30,7 +38,7 @@ router.post('/', async (req, res) => {
       await registerController.addUser(username, email, hashedPass);
       await registerController.addUserBankroll(username);
       
-      res.redirect('/login');
+      res.json({ success: true }); 
     } catch (error) {
       console.error(error);
       res.status(500).send('Internal server error');
