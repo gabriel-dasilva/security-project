@@ -55,7 +55,7 @@ router.get('/', (req, res) => {
             expires: expiryDate,
             httpOnly: false
           });
-          res.redirect('http://localhost:4000/');
+          res.redirect('http://localhost:8080/');
     }else{
         console.log("failed to log in!");
     }
