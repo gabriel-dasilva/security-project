@@ -1,7 +1,7 @@
 const mssql = require('mssql');
 const dotenv = require('dotenv');
 
-dotenv.config();
+dotenv.config({ path: require('find-config')('.env') });
 
 const config = {
   database: process.env.SQL_DATABASE,
