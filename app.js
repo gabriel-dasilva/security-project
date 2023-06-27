@@ -4,7 +4,9 @@ const homepageRoute = require('./routes/homepage');
 const blackjackMainPage = require('./routes/blackjackRoute');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
+app.use(cors({ credentials: true, origin: 'https://9hhswbztrc.us-east-1.awsapprunner.com/' }));
 app.use(cookieParser())
 app.use(express.json());
 app.use(bodyParser.json());

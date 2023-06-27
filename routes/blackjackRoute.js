@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   const token = req.cookies.token;
   console.log(token);
   
-  /*if (!token) {
+  if (!token) {
     return res.redirect('https://9hhswbztrc.us-east-1.awsapprunner.com/login');
   }
 
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
     }
     
     res.sendFile('views/blackjack.html', { root: 'public' });
-  });*/
+  });
 
   res.sendFile('views/blackjack.html', { root: 'public' });
 });
