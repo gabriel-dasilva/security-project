@@ -49,11 +49,13 @@ router.get('/', (req, res) => {
           user.token = token;
           res.cookie('token', token, {
             expires: expiryDate,
-            httpOnly: true
+            httpOnly: true,
+            secure: true
           });
           res.cookie('username', user.username, {
             expires: expiryDate,
-            httpOnly: false
+            httpOnly: false,
+            secure: true
           });
           res.redirect('https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack');
     }else{
