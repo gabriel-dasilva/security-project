@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
       const OTPInput = req.body.otp;
       const OTP = req.session.otp;
       const username = req.session.username;
-
+      console.log('Confirm OTP username: ' + username);
       if (OTPInput == OTP) {
         const user = await loginController.getUserByUsername(username);
         const token = jwt.sign(

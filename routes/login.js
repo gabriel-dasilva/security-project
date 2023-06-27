@@ -56,7 +56,7 @@ router.post('/', async (req, res) => {
       req.session.email = email;
       req.session.username = username;
 
-    
+      console.log('Login page username: ' + req.session.username)
       // sends an email (can only send 100 emails per day)
       // otherwise comment this and console.log the OTP
       
