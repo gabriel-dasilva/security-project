@@ -51,6 +51,10 @@ router.get('/', (req, res) => {
             expires: expiryDate,
             httpOnly: true
           });
+          res.cookie('username', user.username, {
+            expires: expiryDate,
+            httpOnly: false
+          });
           res.redirect('http://localhost:4000/');
     }else{
         console.log("failed to log in!");
