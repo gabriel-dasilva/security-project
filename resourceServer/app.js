@@ -3,7 +3,9 @@ const app = express();
 const homepageRoute = require('./routes/homepage');
 const blackjackMainPage = require('./routes/blackjackRoute');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
+app.use(cookieParser())
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
