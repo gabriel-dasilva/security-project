@@ -31,10 +31,8 @@ router.post('/', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const user = await loginController.getUserByUsername(username);
-    console.log(user);
 
     if (user == undefined) {
-      console.log('this should execute');
       return res.status(401).json({ error: 'Invalid username or password' });
     }
     else {
@@ -58,8 +56,10 @@ router.post('/', async (req, res) => {
       req.session.email = email;
       req.session.username = username;
 
-      //IF UNCOMMENTED, IT WILL SEND AN EMAIL TO THE ABOVE ADDRESS
-    /*
+    
+      // sends an email (can only send 100 emails per day)
+      // otherwise comment this and console.log the OTP
+      /*
       sgMail
       .send(msg)
       .then(() => {
@@ -69,10 +69,11 @@ router.post('/', async (req, res) => {
       .catch((error) => {
         console.error(error)
       })
-    */
+      */
+    
 
-      //res.redirect('http://localhost:3000/views/confirmOTP.html');
-      res.json({ success: true }); // Send a success response
+      
+      res.json({ success: true }); 
     }
     
     

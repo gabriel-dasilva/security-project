@@ -7,23 +7,28 @@
     <title>BlackJack App</title>
 </head>
 <body>
-    <div class="form-container">
-      <h1>Login</h1>
-      <form autocomplete="off" id="login-form" action="/login" method="post">
-        <div class="form-group">
-          <label for="username" class="form-label">Username</label>
-          <input type="text" id="username" name="username" class="form-input" required>
-        </div>
-        <div class="form-group">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" id="password" name="password" class="form-input" required>
-        </div>
-        <button type="submit" class="form-button">Login</button>
-      </form>
-      <p id="error-message" class="error"></p>
-      <a href="/register">No account? Register</a>
-    </div>
-    <script src="../javascript/login.js">
-    </script>
+    <header class="form-container">
+        <h1>Login</h1>
+        <form autocomplete="off" id="login-form" action="/login" method="post">
+    
+            <section class="form-group">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" name="username" class="form-input" required>
+            </section>
+            
+            <section class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-input" required>
+            </section>
+            
+            <button type="submit" class="form-button">Login</button>
+        </form>
+        
+        <p id="error-message" class="error"></p>
+        
+        <a href="/register">No account? Register</a>
+    </header>
+    
+    <script src="../javascript/login.js"></script>
 </body>
 </html>
