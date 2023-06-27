@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/register.css">
+    <link rel="stylesheet" href="/styles/register.css">
     <title>BlackJack App</title>
 </head>
 <body>
     <section class="form-container">
         <h1>Register</h1>
-        <form autocomplete="off" action="/register" method="post">
+        <form autocomplete="off" id="register-form" action="/register" method="post">
     
             <section class="form-group">
                 <label for="username" class="form-label">Username</label>
@@ -33,6 +33,9 @@
             
             <button type="submit" class="form-button">Register</button>
         </form>
+
+        <p id="error-message" class="error"></p>
+        <script src="../javascript/register.js"></script>
         
         <a href="/views/login.html">Login</a>
     </section>
