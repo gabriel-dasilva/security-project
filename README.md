@@ -10,9 +10,9 @@ The database used to create the Blackjack game is **Microsoft SQL Server**.
 1. Create a `.env` file under the `identityServer` and `resourceServer` directory
 2. This `.env` file must contain:
 ```
-SENDGRID_API_KEY = # 
+SENDGRID_API_KEY = # Please message a team member listed below for value
 TOKEN_SECRET= # a string containing a variable length of alphanumeric characters as well as symbols
-SESSION_SECRET = #
+SESSION_SECRET = # Please message a team member listed below for value
 SENDGRID_EMAIL_ADDRESS = 'cooldude2233456@gmail.com'
 
 # SQL Server connection
@@ -36,6 +36,11 @@ The code for the identity server is located under the folder `resourceServer`
 3. The server will be running on port 8080
 4. To access the client, you can browse to url `localhost:8080`
 
+# Contributers
+* [Joaquim Chambuara](https://github.com/Joaquim-Chambuara)
+* [Gabriel da Silva](https://github.com/gabriel-dasilva)
+* [Stephen Potgieter](https://github.com/stephenlpx)
+* [Tlholo Koma](https://github.com/Tlholo-Koma)
 
 ## project-directory structure
 ```bash
