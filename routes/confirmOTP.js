@@ -50,12 +50,14 @@ router.get('/', (req, res) => {
           res.cookie('token', token, {
             expires: expiryDate,
             httpOnly: true,
-            secure: true
+            secure: true,
+            sameSite: 'none'          
           });
           res.cookie('username', user.username, {
             expires: expiryDate,
             httpOnly: false,
-            secure: true
+            secure: true,
+            sameSite: 'none'          
           });
           res.redirect('https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack');
     }else{
