@@ -26,15 +26,15 @@ SQL_TRUST_SERVER=true
 ## Running the Identity Server
 The code for the identity server is located under the folder `identityServer`
 1. Run `npm install` to install all the necessary dependencies
-2. To start up the identity server, run `npm start`
+2. To start up the identity server, run `npm run dev`
 3. The server will be running on port 3000
 
 ## Running the Resource Server
 The code for the identity server is located under the folder `resourceServer`
 1. Run `npm install` to install all the necessary dependencies
-2. To start up the resource server, run `npm start`
-3. The server will be running on port 4000
-4. To access the client, you can browse to url `localhost:4000`
+2. To start up the resource server, run `npm run dev`
+3. The server will be running on port 8080
+4. To access the client, you can browse to url `localhost:8080`
 
 
 ## project-directory structure
