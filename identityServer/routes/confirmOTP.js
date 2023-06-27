@@ -55,7 +55,7 @@ router.get('/', (req, res) => {
             expires: expiryDate,
             httpOnly: false
           });
-          res.redirect('http://localhost:8080/');
+          res.redirect('http://localhost:8080/views/blackjack.html');
     }else{
         console.log("failed to log in!");
     }
