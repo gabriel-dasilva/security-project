@@ -432,7 +432,6 @@ async function getUserBankRoll(username){
         method: 'POST',
         body: JSON.stringify({ "username" : user }),
         headers: {
-            "Authorization": localStorage.getItem('access_token'),
             "Content-type": "application/json; charset=UTF-8"
         }
       });
@@ -459,7 +458,6 @@ async function updateUserBankRoll(username, bankroll){
         body: JSON.stringify({ "username" : username,
                                 "bankroll" : bankroll }),
         headers: {
-            "Authorization": localStorage.getItem('access_token'),
             "Content-type": "application/json; charset=UTF-8"
         }
       });
