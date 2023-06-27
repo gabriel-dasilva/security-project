@@ -16,17 +16,8 @@
         <li><a href="#how-to-play">How to Play</a></li>
         <li><a href="#prizes">Tournament Prizes</a></li>
       </ul>
-      <figure id="userIcon">
-        <img src="../images/user_icon.jpg" alt="User Icon">Welcome,
-        <figcaption id="username">Error</figcaption>
-        <script>
-          console.log(document.cookie);
-          name = document.cookie.split('=')[1];
-          console.log(name);
-          document.getElementById('username').innerText = name;
-        </script>
-      </figure>
-      <button onclick="location.href = '../views/blackjack.html'" id="logout">Logout</button>
+      
+      <button onclick="location.href = 'http://localhost:3000/views/login.html'" class="login-button">Login</button>
     </nav>
   </header>
   
@@ -34,7 +25,7 @@
     <section id="play" class="game-section">
       <h2>Welcome to the Blackjack Game Tournament</h2>
       <p>Test your skills and compete for the championship!</p>
-      <button onclick="location.href = '../views/blackjack.html'" class="play-button">Play Now</button>
+      <button onclick="location.href = 'http://localhost:3000/views/login.html'" class="login-button">Play Now</button>
     </section>
     
     <section id="how-to-play" class="instructions-section">
