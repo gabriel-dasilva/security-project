@@ -1,11 +1,32 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const userController = require('../controllers/userController');
+const verifyToken = require('../middleware/auth');
 
 app.use(express.json());
 
-router.post('/userBankRoll', async (req, res) => {
+router.get('/', (req, res) => {
+  const token = req.cookies.token;
+  console.log(token);
+  
+  if (!token) {
+    return res.redirect('http://localhost:3000/views/login.html');
+  }
+
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      console.log('Here');
+      console.log(err);
+      return res.redirect('http://localhost:3000/views/login.html');
+    }
+    
+    res.sendFile('views/blackjack.html', { root: 'public' });
+  });
+});
+
+router.post('/userBankRoll', verifyToken, async (req, res) => {
   console.log("Getting user bankroll")
   try {
     const username = req.body.username;     
@@ -17,7 +38,7 @@ router.post('/userBankRoll', async (req, res) => {
   }
 });
 
-router.post('/userBankRoll/update', async (req, res) => {
+router.post('/userBankRoll/update', verifyToken, async (req, res) => {
   console.log("Updating user bankroll")
   try {
     const username = req.body.username;     

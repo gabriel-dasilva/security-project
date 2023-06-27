@@ -12,7 +12,7 @@ let playerCards = [];
 let yourSum = 0;//set yourSum to an arbitrary value just for testing
 let message = ""
 let deckJson = '';
-let username = 'test'
+let username = '';
 
 let overlay = null;
 let gameInProgress = false;
@@ -33,6 +33,7 @@ const cardValues =  '{ "1":1 ,' +
 
 const chipSound = new Audio('../sound/sound.ogg');
 window.onload = function () {
+    getUsername();
     getUserBankRoll();
     buildDeck();
     shuffleDeck();
@@ -91,7 +92,8 @@ function startGame() {
     document.getElementById("placebet").addEventListener("click", placebet);
     document.getElementById("placebet").disabled = true;
     document.getElementById("hit").disabled = true;
-    document.getElementById("stay").disabled = true;
+    document.getElementById("stay").disabled = true;    
+    document.getElementById("new-game").style.display = "none";
     hidden = deck.pop();
     actual = hidden;
     dealerSum = 0;
@@ -281,7 +283,7 @@ function runDealerLogic() {
     }
 
     document.getElementById("hit").style.display = "none";
-    document.getElementById("stay").style.display = "none";
+    document.getElementById("stay").style.display = "none";    
 }
 
 function showOverlay() {
@@ -420,11 +422,10 @@ function payPlayer(playerWon){
         bankroll -= bet;
     }
     
-    updateUserBankRoll(username, bankroll);
+    updateUserBankRoll(bankroll);
 }
 
-async function getUserBankRoll(username){
-    username = 'test'    
+async function getUserBankRoll(){
 
     const userBankroll = async (user) => {
 
@@ -451,8 +452,7 @@ async function getUserBankRoll(username){
     }
 }
 
-async function updateUserBankRoll(username, bankroll){
-    username='test';
+async function updateUserBankRoll(bankroll){
     let response = await fetch('/blackjack/userBankRoll/update', {
         method: 'POST',
         body: JSON.stringify({ "username" : username,
@@ -465,4 +465,8 @@ async function updateUserBankRoll(username, bankroll){
       if(response.status === 500){
         console.log("Error occurred in updating user bankroll");
       }
+}
+
+function getUsername() {
+    username = document.cookie.split('=')[1];
 }
