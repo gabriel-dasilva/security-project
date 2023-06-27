@@ -23,6 +23,27 @@ const getUserByUsername = async (userName) => {
     
   };
 
+  const updateUser = async (username ,refreshToken) => {
+    const dbPool = await pool;
+    try {
+      const ps = new mssql.PreparedStatement(dbPool);
+      
+      ps.input('refreshToken', mssql.VarChar, refreshToken);
+      ps.input('username', mssql.VarChar, username);
+  
+      const stmt = 'UPDATE [User] SET refreshToken=@refreshToken where username=@username;';
+  
+      await ps.prepare(stmt);
+      await ps.execute({
+        username: username,
+        refreshToken: refreshToken
+      });
+    } catch(err) {
+      console.error(err);
+    }
+}
+
   module.exports = {
     getUserByUsername,
+    updateUser
   };

@@ -3,6 +3,7 @@ const app = express();
 const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const otpRoute = require('./routes/confirmOTP');
+const tokenRoute = require('./routes/token');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
@@ -30,7 +31,7 @@ app.use(express.static('public'));
 app.use('/register', registerRoute);
 app.use('/login', loginRoute);
 app.use('/confirmOTP', otpRoute);
-
+app.use('/token', tokenRoute);
 
 
 app.listen(3000);

@@ -4,6 +4,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const loginController = require('../controllers/loginController');
+const tokenController = require('../controllers/tokenController');
 
 
 app.use(express.json());
@@ -35,27 +36,33 @@ router.get('/', (req, res) => {
 
       if (OTPInput == OTP) {
         const user = await loginController.getUserByUsername(username);
-        const token = jwt.sign(
-            {username: user.username},
-            process.env.TOKEN_SECRET,
-            {
-              expiresIn: "1h"
-            }
-          );
+        const accessToken = tokenController.generateAccessToken({username: user.username});
+        
+        const refreshToken = jwt.sign(
+          {username: user.username},
+          process.env.REFRESH_TOKEN_SECRET
+        );
+        
+        await loginController.updateUser(username, refreshToken);
+        const fifteenMinutes = 15 * 60 * 1000;
+        const expiryDate = new Date(Date.now() + fifteenMinutes);
+    
+        res.cookie('token', accessToken, {
+          expires: expiryDate,
+          httpOnly: true
+        });
 
-          const fifteenMinutes = 15 * 60 * 1000;
-          const expiryDate = new Date(Date.now() + fifteenMinutes);
-      
-          user.token = token;
-          res.cookie('token', token, {
-            expires: expiryDate,
-            httpOnly: true
-          });
-          res.cookie('username', user.username, {
-            expires: expiryDate,
-            httpOnly: false
-          });
-          res.redirect('http://localhost:8080/');
+        res.cookie('refreshToken', refreshToken, {
+          expires: expiryDate,
+          httpOnly: true
+        });
+
+
+        res.cookie('username', user.username, {
+          expires: expiryDate,
+          httpOnly: false
+        });
+        res.redirect('http://localhost:8080/');
     }else{
         console.log("failed to log in!");
     }
