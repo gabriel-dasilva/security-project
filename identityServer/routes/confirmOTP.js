@@ -20,7 +20,6 @@ function maskEmail(email) {
 }
 
 router.get('/', (req, res) => {
-    // function to star out the email address here*****
     const OTP = req.session.otp;
     const email = req.session.email;
     let maskedEmail = maskEmail(email);
@@ -35,7 +34,6 @@ router.get('/', (req, res) => {
       const username = req.session.username;
 
       if (OTPInput == OTP) {
-        console.log("Successful authentication") 
         const user = await loginController.getUserByUsername(username);
         const token = jwt.sign(
             {username: user.username},
@@ -44,13 +42,16 @@ router.get('/', (req, res) => {
               expiresIn: "1h"
             }
           );
+
+          const fifteenMinutes = 15 * 60 * 1000;
+          const expiryDate = new Date(Date.now() + fifteenMinutes);
       
           user.token = token;
-          tokenValue = {
-            'token': user.token,
-            
-          };
-          res.status(200).send(tokenValue);
+          res.cookie('token', token, {
+            expires: expiryDate,
+            httpOnly: true
+          });
+          res.redirect('http://localhost:4000/');
     }else{
         console.log("failed to log in!");
     }

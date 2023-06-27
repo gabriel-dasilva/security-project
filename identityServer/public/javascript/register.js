@@ -1,4 +1,4 @@
-const loginForm = document.getElementById('login-form');
+const loginForm = document.getElementById('register-form');
 const errorMessageElement = document.getElementById('error-message');
 
 loginForm.addEventListener('submit', (event) => {
@@ -6,10 +6,11 @@ loginForm.addEventListener('submit', (event) => {
 
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
 
-  fetch('/login', {
+  fetch('/register', {
     method: 'POST',
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ username, password, confirmPassword}),
     headers: {
       'Content-Type': 'application/json'
     }
@@ -23,9 +24,7 @@ loginForm.addEventListener('submit', (event) => {
       console.log(errorMessage);
     } else {
       console.log('success');
-      const { username } = data;
-      localStorage.setItem('username', username);
-      window.location.href = 'http://localhost:3000/views/confirmOTP.html'; 
+      window.location.href = 'http://localhost:3000/views/login.html'; 
     }
   })
   .catch(error => {
