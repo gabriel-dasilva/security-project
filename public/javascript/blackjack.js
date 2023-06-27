@@ -4,7 +4,7 @@ let deck;
 
 let canHit = true; //allows the player (you) to draw while yourSum <= 21
 
-let bankroll = 0;
+let bankroll = 500;
 let bet = 0; //Set bet to an arbitrary value,once
 let dealerSum = 0;//set dealSum to an arbitrary value just for testing
 let dealCards = [];
