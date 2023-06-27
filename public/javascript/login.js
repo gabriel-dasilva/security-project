@@ -25,7 +25,7 @@ loginForm.addEventListener('submit', (event) => {
       console.log('success');
       const { username } = data;
       localStorage.setItem('username', username);
-      window.location.href = 'http://localhost:3000/views/confirmOTP.html'; 
+      window.location.href = 'https://9hhswbztrc.us-east-1.awsapprunner.com/views/confirmOTP.html'; 
     }
   })
   .catch(error => {
