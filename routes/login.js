@@ -59,7 +59,7 @@ router.post('/', async (req, res) => {
     
       // sends an email (can only send 100 emails per day)
       // otherwise comment this and console.log the OTP
-      /*
+      
       sgMail
       .send(msg)
       .then(() => {
@@ -69,7 +69,7 @@ router.post('/', async (req, res) => {
       .catch((error) => {
         console.error(error)
       })
-      */
+      
     
 
       
