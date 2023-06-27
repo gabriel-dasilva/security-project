@@ -109,9 +109,27 @@ span {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: rotateContainer 10s infinite linear;
   transform-origin: center;
   transform-style: preserve-3d;
+}
+
+#userIcon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#userIcon img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+#userIcon #userName {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px #000000;
 }
 
 @keyframes rotateContainer {
@@ -203,12 +221,20 @@ span {
 }
 
 #hit:hover,
-#stay:hover {
+#stay:hover,
+#placebet:hover,
+#deal:hover,
+#exit-game:hover {
   background-color: #005f73;
 }
 
 #new-game:hover {
   background-color: #45a049;
+}
+
+#placebet:disabled ,
+#deal:disabled{
+  background-color: gray;
 }
 
 .chip {
@@ -331,7 +357,6 @@ span {
   background: transparent;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
   border: 2px solid #00f7ff;
-  animation: neon 1s infinite alternate;
 }
 
 @keyframes neon {

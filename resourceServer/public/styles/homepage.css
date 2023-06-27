@@ -84,6 +84,23 @@ header nav {
   padding: 10px;
 }
 
+#userIcon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#userIcon img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+#userIcon #userName {
+  color: #fff;
+  font-size: 18px;
+}
+
 /* Button styles */
 .login-button {
   display: inline-block;

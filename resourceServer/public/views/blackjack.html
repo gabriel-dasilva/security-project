@@ -11,12 +11,24 @@
 
 <body>
   <header>
+    <nav>
+      <figure id="userIcon">
+        <img src="../images/user_icon.jpg" alt="User Icon">Welcome,
+        <figcaption id="username">Error</figcaption>
+        <script>
+          console.log(document.cookie);
+          name = document.cookie.split('=')[1];
+          console.log(name);
+          document.getElementById('username').innerText = name;
+        </script>
+      </figure>
+    </nav>
     <h1 class ="title">BlackJack</h1>
     <h2><span id="command">Let's Play</span></h2>
-    <button id="new-game" title="Start A New Game">New Game</button>
+    <button id="new-game" title="Start A New Game">New Game</button>    
   </header>
 
-  <main>
+  <main>    
     <section class="bet-info">
       <summary>Bankroll: $<span id="bankroll">0</span></summary>
       <summary>Bet: $<span id="bet">0</span></summary>
@@ -45,7 +57,7 @@
       </figure>
     </section>
     <section id="deal-section">
-      <button title="You need to place your be first before you may continue!" id="deal" disabled>Deal</button>
+      <button class="bet-btn" title="You need to place your be first before you may continue!" id="deal" disabled>Deal</button>
     </section>
     <article class="game-area">
       <section id="dealer-section">
