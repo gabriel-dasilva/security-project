@@ -5,12 +5,13 @@ loginForm.addEventListener('submit', (event) => {
   event.preventDefault(); // Prevent form submission
 
   const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
 
   fetch('/register', {
     method: 'POST',
-    body: JSON.stringify({ username, password, confirmPassword}),
+    body: JSON.stringify({ username, email, password, confirmPassword}),
     headers: {
       'Content-Type': 'application/json'
     }
