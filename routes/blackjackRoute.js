@@ -12,14 +12,14 @@ router.get('/', (req, res) => {
   console.log(token);
   
   if (!token) {
-    return res.redirect('http://localhost:3000/views/login.html');
+    return res.redirect('https://9hhswbztrc.us-east-1.awsapprunner.com/login');
   }
 
   jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
     if (err) {
       console.log('Here');
       console.log(err);
-      return res.redirect('http://localhost:3000/views/login.html');
+      return res.redirect('https://9hhswbztrc.us-east-1.awsapprunner.com/login');
     }
     
     res.sendFile('views/blackjack.html', { root: 'public' });
