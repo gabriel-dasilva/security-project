@@ -55,7 +55,7 @@ router.get('/', (req, res) => {
             expires: expiryDate,
             httpOnly: false
           });
-          res.redirect('http://localhost:8080/blackjack');
+          res.redirect('https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack');
     }else{
         console.log("failed to log in!");
     }
