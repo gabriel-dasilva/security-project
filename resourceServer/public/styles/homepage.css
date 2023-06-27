@@ -84,40 +84,8 @@ header nav {
   padding: 10px;
 }
 
-#userIcon {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-#userIcon img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-}
-
-#userIcon #userName {
-  color: #fff;
-  font-size: 18px;
-}
-
-#logout {
-  background-color: transparent;
-  color: white;
-  border: none;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-
 /* Button styles */
-.play-button {
+.login-button {
   display: inline-block;
   padding: 15px 40px;
   background-color: #ffcc00;
@@ -131,7 +99,7 @@ header nav {
   animation: float 2s ease-in-out infinite;
 }
 
-.play-button:hover {
+.login-button:hover {
   background-color: #fff;
   color: #000;
 }
