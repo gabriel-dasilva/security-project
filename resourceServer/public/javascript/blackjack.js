@@ -92,7 +92,8 @@ function startGame() {
     document.getElementById("placebet").addEventListener("click", placebet);
     document.getElementById("placebet").disabled = true;
     document.getElementById("hit").disabled = true;
-    document.getElementById("stay").disabled = true;
+    document.getElementById("stay").disabled = true;    
+    document.getElementById("new-game").style.display = "none";
     hidden = deck.pop();
     actual = hidden;
     dealerSum = 0;
@@ -282,7 +283,7 @@ function runDealerLogic() {
     }
 
     document.getElementById("hit").style.display = "none";
-    document.getElementById("stay").style.display = "none";
+    document.getElementById("stay").style.display = "none";    
 }
 
 function showOverlay() {
