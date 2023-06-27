@@ -18,9 +18,6 @@ router.post('/', async (req, res) => {
       const password = req.body.password;
       const email = req.body.email;
       const confirmPassword = req.body.confirmPassword;
-
-      console.log(password);
-      console.log(confirmPassword);
   
       const minPasswordLength = 10;
       // Check if the password and confirm password match
