@@ -7,13 +7,11 @@ const verifyToken = require('../middleware/auth');
 
 app.use(express.json());
 
-router.post('/', (req, res) => {
-  //const token = req.cookies.token;
-  const token = req.headers.authorization;
-  const username = req.headers['x-username'];
+router.get('/', (req, res) => {
+  const token = req.cookies.token;
   console.log(token);
   
-  if (!token) {
+  /*if (!token) {
     return res.redirect('https://9hhswbztrc.us-east-1.awsapprunner.com/login');
   }
 
@@ -25,7 +23,7 @@ router.post('/', (req, res) => {
     }
     
     res.sendFile('views/blackjack.html', { root: 'public' });
-  });
+  });*/
 
   res.sendFile('views/blackjack.html', { root: 'public' });
 });
