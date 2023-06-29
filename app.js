@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-app.use(cors({ credentials: true, origin: 'https://abrzgdhmf3.us-east-1.awsapprunner.com/' }));
+app.use(cors({ credentials: true, origin: 'https://abrzgdhmf3.us-east-1.awsapprunner.com' }));
 app.use(express.json());
 app.use(cookieParser());
 

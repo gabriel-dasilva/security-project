@@ -51,13 +51,15 @@ router.get('/', (req, res) => {
             expires: expiryDate,
             httpOnly: true,
             secure: true,
-            sameSite: 'none'          
+            sameSite: 'none',
+            path: '/'          
           });
           res.cookie('username', user.username, {
             expires: expiryDate,
             httpOnly: false,
             secure: true,
-            sameSite: 'none'          
+            sameSite: 'none',
+            path: '/'            
           });
           res.redirect('https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack');
     }else{
