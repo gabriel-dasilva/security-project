@@ -63,8 +63,16 @@ router.get('/', (req, res) => {
             path: '/',
             domain: 'abrzgdhmf3.us-east-1.awsapprunner.com'           
           });
-
-          res.redirect('https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack');
+          
+          res.writeHead(302, {
+            'Location': 'https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack',
+            'Set-Cookie': [
+              `token=${token}; SameSite=None; Secure`,
+              `username=${user.username}; SameSite=None; Secure`
+            ]
+          });
+          res.end();
+          //res.redirect('https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack');
     }else{
         console.log("failed to log in!");
     }
