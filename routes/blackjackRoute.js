@@ -8,7 +8,7 @@ const verifyToken = require('../middleware/auth');
 app.use(express.json());
 
 router.get('/', (req, res) => {
-  const token = req.cookies.token;
+  /*const token = req.cookies.token;
   console.log(token);
   
   if (!token) {
@@ -23,9 +23,24 @@ router.get('/', (req, res) => {
     }
     
     res.sendFile('views/blackjack.html', { root: 'public' });
-  });
+  });*/
+  const authorizationHeader = req.headers.authorization;
+  const token = authorizationHeader && authorizationHeader.split(' ')[1];
 
-  res.sendFile('views/blackjack.html', { root: 'public' });
+// Verify and validate the token
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      // Token verification failed
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+
+  // Token is valid
+  const username = decoded.username;
+    console.log(username);
+  res.sendFile('views/blackjack.html', { 
+    root: 'public',
+    locals: { username } });
+  });
 });
 
 router.post('/userBankRoll', async (req, res) => {
