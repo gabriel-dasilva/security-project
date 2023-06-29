@@ -7,7 +7,7 @@ const verifyToken = require('../middleware/auth');
 
 app.use(express.json());
 
-router.get('/', (req, res) => {
+router.post('/', (req, res) => {
   //const token = req.cookies.token;
   const token = req.headers.authorization;
   const username = req.headers['x-username'];
