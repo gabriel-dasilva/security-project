@@ -51,7 +51,7 @@ router.get('/', (req, res) => {
             expires: expiryDate,
             httpOnly: true,
             secure: true,
-            //sameSite: 'none',
+            sameSite: 'none',
             path: '/',
             domain: 'abrzgdhmf3.us-east-1.awsapprunner.com'         
           });
@@ -59,7 +59,7 @@ router.get('/', (req, res) => {
             expires: expiryDate,
             httpOnly: false,
             secure: true,
-            //sameSite: 'none',
+            sameSite: 'none',
             path: '/',
             domain: 'abrzgdhmf3.us-east-1.awsapprunner.com'           
           });
