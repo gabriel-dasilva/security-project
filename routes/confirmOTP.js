@@ -47,6 +47,13 @@ router.get('/', (req, res) => {
           const expiryDate = new Date(Date.now() + fifteenMinutes);
       
           user.token = token;
+            
+            // Include token and username in the response headers
+            res.setHeader('Authorization', `Bearer ${token}`);
+            res.setHeader('X-Username', username);
+            
+            // Redirect to the resource server with 307 status code
+            res.redirect(307, 'https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack');
           /*res.cookie('token', token, {
             expires: expiryDate,
             httpOnly: true,
@@ -64,7 +71,7 @@ router.get('/', (req, res) => {
             domain: 'abrzgdhmf3.us-east-1.awsapprunner.com'           
           });*/
 
-          res.writeHead(302, {
+          /*res.writeHead(302, {
             'Location': 'https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack',
             'Set-Cookie': [
               `token=${token}; SameSite=None; Secure`,
@@ -72,7 +79,7 @@ router.get('/', (req, res) => {
             ]
           });
           res.end();
-          //res.redirect('https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack');
+          //res.redirect('https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack');*/
     }else{
         console.log("failed to log in!");
     }
