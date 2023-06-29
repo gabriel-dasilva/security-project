@@ -14,7 +14,13 @@
     <nav>
       <figure id="userIcon">
         <img src="../images/user_icon.jpg" alt="User Icon">Welcome,
-        <figcaption id="username">Test</figcaption>
+        <figcaption id="username">Error</figcaption>
+        <script>
+          console.log(document.cookie);
+          name = document.cookie.split('=')[1];
+          console.log(name);
+          document.getElementById('username').innerText = name;
+        </script>
       </figure>
     </nav>
     <h1 class ="title">BlackJack</h1>
