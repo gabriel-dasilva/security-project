@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
             res.setHeader('X-Username', username);
             
             // Redirect to the resource server with 307 status code
-            res.redirect(303, 'https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack');
+            res.redirect(307, 'https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack');
           /*res.cookie('token', token, {
             expires: expiryDate,
             httpOnly: true,
