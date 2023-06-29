@@ -46,7 +46,7 @@ router.get('/', (req, res) => {
           const fifteenMinutes = 15 * 60 * 1000;
           const expiryDate = new Date(Date.now() + fifteenMinutes);
       
-          user.token = token;
+          /*user.token = token;
           res.cookie('token', token, {
             expires: expiryDate,
             httpOnly: true,
@@ -60,7 +60,8 @@ router.get('/', (req, res) => {
             secure: true,
             sameSite: 'none',
             path: '/'            
-          });
+          });*/
+          res.json({ token });
           res.redirect('https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack');
     }else{
         console.log("failed to log in!");
