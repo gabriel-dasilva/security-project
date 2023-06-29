@@ -47,7 +47,7 @@ router.get('/', (req, res) => {
           const expiryDate = new Date(Date.now() + fifteenMinutes);
       
           user.token = token;
-          res.cookie('token', token, {
+          /*res.cookie('token', token, {
             expires: expiryDate,
             httpOnly: true,
             secure: true,
@@ -62,8 +62,8 @@ router.get('/', (req, res) => {
             sameSite: 'none',
             path: '/',
             domain: 'abrzgdhmf3.us-east-1.awsapprunner.com'           
-          });
-          
+          });*/
+
           res.writeHead(302, {
             'Location': 'https://abrzgdhmf3.us-east-1.awsapprunner.com/blackjack',
             'Set-Cookie': [
